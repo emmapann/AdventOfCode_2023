@@ -1,15 +1,6 @@
 # Advent of Code
 # Day 1 
 
-
-arr =  [3, 6, 7]
-game_id, rest = arr.split(':')
-_, id = game_id.strip().split(' ')
-for set_colors in rest.strip().split(';'):
-    pass
-
-
-
 import re
 
 #----------------------------------------------------------------------------------------

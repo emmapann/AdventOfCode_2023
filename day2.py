@@ -3,6 +3,14 @@
 import re
 import numpy as np
 
+# Notes from Andrew
+# arr =  [3, 6, 7]
+# game_id, rest = arr.split(':')
+# _, id = game_id.strip().split(' ')
+# for set_colors in rest.strip().split(';'):
+#     pass
+
+
 avail_cubes = [12, 13, 14]
 game_total = 0
 
