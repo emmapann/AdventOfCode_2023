@@ -1,22 +1,28 @@
 # Advent of Code
 # Day 1 
 
-import re
 
-inputFile = open('input_day1.txt', 'r')
-#inputFile = open('input_day1_test.txt', 'r')
-lines = inputFile.readlines()
+arr =  [3, 6, 7]
+game_id, rest = arr.split(':')
+_, id = game_id.strip().split(' ')
+for set_colors in rest.strip().split(';'):
+    pass
+
+
+
+import re
 
 #----------------------------------------------------------------------------------------
 # part 1
 calSum = 0
-for line in lines:
-    #keep only numbers from the line
-    numbers_only = re.sub(r'\D', '', line)
-    if numbers_only:
-        first_num = int(numbers_only[0])
-        last_num = int(numbers_only[len(numbers_only)-1])
-        calSum += (first_num * 10 + last_num)
+with open('input_day1.txt', 'r') as f:
+    for line in f.readlines():
+        #keep only numbers from the line
+        numbers_only = re.sub(r'\D', '', line)
+        if numbers_only:
+            first_num = int(numbers_only[0])
+            last_num = int(numbers_only[len(numbers_only)-1])
+            calSum += (first_num * 10 + last_num)
 
 print(calSum)
 
