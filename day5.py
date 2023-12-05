@@ -39,13 +39,6 @@ with open('input_day5_test.txt', 'r') as f:
             case 'seeds':
                 # create list of seeds
                 seeds = sum(int_list, [])
-                
-                # part 2
-                updated_seeds = []
-                # TODO: this is SLOW
-                for i in range(0, len(seeds)-1, 2):
-                    new_list = list(range(seeds[i], seeds[i]+seeds[i+1]))
-                    updated_seeds += new_list
 
             case 'seed-to-soil map':
                 for set in int_list:
@@ -85,105 +78,107 @@ with open('input_day5_test.txt', 'r') as f:
     # Loop over seeds
     first = True
     #for element in seeds:
-    for element in updated_seeds:
-        next = element
-        count = 0
-        for rng in ss_source_range:
-            if rng[0] < element < rng[-1]:
-                index = element - rng[0]-1
-                next = int(ss_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(ss_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(ss_dest_range[count][-1])
-                break
-            count +=1
-        count = 0
-        for rng in sf_source_range:
-            if rng[0] < next < rng[-1]:
-                index = next - rng[0]-1
-                next = int(sf_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(sf_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(sf_dest_range[count][-1])
-                break
-            count+=1
-        count = 0
-        for rng in fw_source_range:
-            if rng[0] < next < rng[-1]:
-                index = next - rng[0]-1
-                next = int(fw_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(fw_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(fw_dest_range[count][-1])
-                break
-            count+=1
-        count = 0
-        for rng in wl_source_range:
-            if rng[0] < next < rng[-1]:
-                index = next - rng[0]-1
-                next = int(wl_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(wl_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(wl_dest_range[count][-1])
-                break
-            count+=1
-        count = 0
-        for rng in lt_source_range:
-            if rng[0] < next < rng[-1]:
-                index = next - rng[0]-1
-                next = int(lt_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(lt_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(lt_dest_range[count][-1])
-                break
-            count +=1
-        count = 0
-        for rng in th_source_range:
-            if rng[0] < next < rng[-1]:
-                index = next - rng[0]-1
-                next = int(th_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(th_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(th_dest_range[count][-1])
-                break
-            count +=1
-        count = 0
-        for rng in hl_source_range:
-            if rng[0] < next < rng[-1]:
-                index = next - rng[0]-1
-                next = int(hl_dest_range[count][0]) + int(index) + 1
-                break
-            elif next == rng[0]: 
-                next = int(hl_dest_range[count][0])
-                break
-            elif next == rng[-1]:
-                next = int(hl_dest_range[count][-1])
-                break
-            count +=1
+    for i in range(0, len(seeds)-1, 2):
+        for j in range(0, seeds[i+1]):
+            element = seeds[i] + j
+            next = element
+            count = 0
+            for rng in ss_source_range:
+                if rng[0] < element < rng[-1]:
+                    index = element - rng[0]-1
+                    next = int(ss_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(ss_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(ss_dest_range[count][-1])
+                    break
+                count +=1
+            count = 0
+            for rng in sf_source_range:
+                if rng[0] < next < rng[-1]:
+                    index = next - rng[0]-1
+                    next = int(sf_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(sf_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(sf_dest_range[count][-1])
+                    break
+                count+=1
+            count = 0
+            for rng in fw_source_range:
+                if rng[0] < next < rng[-1]:
+                    index = next - rng[0]-1
+                    next = int(fw_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(fw_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(fw_dest_range[count][-1])
+                    break
+                count+=1
+            count = 0
+            for rng in wl_source_range:
+                if rng[0] < next < rng[-1]:
+                    index = next - rng[0]-1
+                    next = int(wl_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(wl_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(wl_dest_range[count][-1])
+                    break
+                count+=1
+            count = 0
+            for rng in lt_source_range:
+                if rng[0] < next < rng[-1]:
+                    index = next - rng[0]-1
+                    next = int(lt_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(lt_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(lt_dest_range[count][-1])
+                    break
+                count +=1
+            count = 0
+            for rng in th_source_range:
+                if rng[0] < next < rng[-1]:
+                    index = next - rng[0]-1
+                    next = int(th_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(th_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(th_dest_range[count][-1])
+                    break
+                count +=1
+            count = 0
+            for rng in hl_source_range:
+                if rng[0] < next < rng[-1]:
+                    index = next - rng[0]-1
+                    next = int(hl_dest_range[count][0]) + int(index) + 1
+                    break
+                elif next == rng[0]: 
+                    next = int(hl_dest_range[count][0])
+                    break
+                elif next == rng[-1]:
+                    next = int(hl_dest_range[count][-1])
+                    break
+                count +=1
 
-        if first:
-            smallest_loc = next
-            first = False
-        else:
-            if next < smallest_loc: smallest_loc = next
+            if first:
+                smallest_loc = next
+                first = False
+            else:
+                if next < smallest_loc: smallest_loc = next
 print(smallest_loc)
             
             
