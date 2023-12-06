@@ -13,6 +13,9 @@ with open('input_day6.txt', 'r') as f:
     for t, d in zip(times, dist_record):
         for hold in range(0, t):
             time_remain = t - hold
+            # Find first instance where combo beats record time,
+            # then you know the pattern is symmetric do simple calc
+            # to solve for number of win combos
             if (time_remain * hold) > d:
                 num_wins*=(time_remain - hold + 1)
                 break
