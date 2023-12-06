@@ -24,7 +24,7 @@ hl_dest_range = []
 hl_source_range = []
 smallest_loc = []
 
-with open('input_day5_test.txt', 'r') as f:
+with open('input_day5.txt', 'r') as f:
 
     # get each section
     sections = f.read().split('\n\n')  # Split based on a fully empty line
