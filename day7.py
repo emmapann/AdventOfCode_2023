@@ -63,7 +63,24 @@ def find_replacement(input_string):
         highest_repeated_value = max(max_values)
         return next(key for key, value in card_mapping.items() if value == highest_repeated_value)
 
+# part 1
+#card_mapping = {
+#    '2': 0,
+#    '3': 1,
+#    '4': 2,
+#    '5': 3,
+#    '6': 4,
+#    '7': 5,
+#    '8': 6,
+#    '9': 7,
+#    'T': 8,
+#    'J': 9,
+#    'Q': 10,
+#    'K': 11,
+#    'A': 12,
+#}
 
+# part 2
 card_mapping = {
     'J': 0,
     '2': 1,
