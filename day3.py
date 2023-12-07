@@ -162,24 +162,24 @@ with open('input_day3.txt', 'r') as f:
     symbols = string.punctuation.replace('.', '')  
     curr_symb_indices = [index for index, char in enumerate(last_line) if char in symbols]
     for num in curr_num_indices:
-            adj_symb = False
-            # check adjacent positions as well as diagonals
-            # if current symbol is -1 from start or + 1 from end
-            for symb in curr_symb_indices:
-                if (symb == num[0]-1 or symb == num[-1]+1):
-                    adj_symb = True
-                    break
-            # If first iteration, do not check prev line
-            for symb in prev_symb_indices:
-                if (num[0]-1 <= symb <= num[-1]+1):
-                    adj_symb = True
-                    break
-            # If there is an adjacent symbol, add the number to the total output
-            if adj_symb:
-                num_digits = num[-1] - num[0]
-                noncum = 0
-                for i in range(0, num_digits + 1):
-                    power = num_digits - i
-                    total += (int(last_line[num[0]+i]) * 10**(power))
+        adj_symb = False
+        # check adjacent positions as well as diagonals
+        # if current symbol is -1 from start or + 1 from end
+        for symb in curr_symb_indices:
+            if (symb == num[0]-1 or symb == num[-1]+1):
+                adj_symb = True
+                break
+        # If first iteration, do not check prev line
+        for symb in prev_symb_indices:
+            if (num[0]-1 <= symb <= num[-1]+1):
+                adj_symb = True
+                break
+        # If there is an adjacent symbol, add the number to the total output
+        if adj_symb:
+            num_digits = num[-1] - num[0]
+            noncum = 0
+            for i in range(0, num_digits + 1):
+                power = num_digits - i
+                total += (int(last_line[num[0]+i]) * 10**(power))
 
     print(total)

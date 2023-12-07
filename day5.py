@@ -2,6 +2,8 @@
 # Day 5
 import re
 import string
+import time
+import random
 
 
 #---------------------------------------------------------------------
@@ -24,6 +26,8 @@ hl_dest_range = []
 hl_source_range = []
 smallest_loc = []
 
+
+start_time = time.time()
 with open('input_day5.txt', 'r') as f:
 
     # get each section
@@ -77,9 +81,22 @@ with open('input_day5.txt', 'r') as f:
 
     # Loop over seeds
     first = True
-    #for element in seeds:
+
+    to_process = 0
+    for i in range(0, len(seeds)-1, 2):
+        to_process += seeds[i] + seeds[i+1]
+
+    print(f'{to_process=}')
+
+    processed = 0
     for i in range(0, len(seeds)-1, 2):
         for j in range(0, seeds[i+1]):
+            if random.random() < .000001 and (j > 0 or i > 0):
+                elapsed_time = time.time() - start_time
+                rate = processed / elapsed_time
+                left = to_process - processed
+                print(f'{rate:,.0f} per second, will take {left * (1 / (60*60)) / rate:.2f} hours to finish')
+            processed += 1
             element = seeds[i] + j
             next = element
             count = 0
@@ -180,9 +197,3 @@ with open('input_day5.txt', 'r') as f:
             else:
                 if next < smallest_loc: smallest_loc = next
 print(smallest_loc)
-            
-            
-
-       
-        
-        

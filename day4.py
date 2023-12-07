@@ -16,11 +16,8 @@ with open('input_day4.txt', 'r') as f:
         win_nums = [int(num) for num in win_nums.split()]
         my_nums = [int(num) for num in my_nums.split()]
         
-        set1 = set(win_nums)
-        set2 = set(my_nums)
-
         # Find intersection
-        intersection = set1 & set2
+        intersection = set(win_nums) & set(my_nums)
         if intersection:
             total += 2**(len(intersection)-1)
 print(total)
@@ -39,18 +36,14 @@ with open('input_day4.txt', 'r') as f:
         win_nums, my_nums = rest.split('|')
         win_nums = [int(num) for num in win_nums.split()]
         my_nums = [int(num) for num in my_nums.split()]
-        
-        set1 = set(win_nums)
-        set2 = set(my_nums)
 
         # Find intersection
-        intersection = set1 & set2
-        while len(card_multiplier) < game_num + len(intersection):
-                card_multiplier.append(1)
+        times_won = len(set(win_nums) & set(my_nums))
+        while len(card_multiplier) < game_num + times_won:
+            card_multiplier.append(1)
 
-        if intersection:
-            total += 2**(len(intersection)-1)            
-            card_multiplier[game_num:game_num+len(intersection)] = [x + card_multiplier[game_num-1] for x in card_multiplier[game_num:game_num+len(intersection)]]
-            
+        if times_won:      
+            card_multiplier[game_num:game_num+times_won] = [x + card_multiplier[game_num-1] for x in card_multiplier[game_num:game_num+times_won]]
+
 print("card multiplier", card_multiplier)
 print(sum(card_multiplier))
