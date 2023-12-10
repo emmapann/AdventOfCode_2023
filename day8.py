@@ -19,7 +19,7 @@ def build_tree(nodes):
         tree[root] = (left.strip(), right.strip())  # Store left and right connections for each node
     last_node = root
     print("last node: ", last_node)
-    return [tree, first_node, last_node]
+    return [tree, 'AAA', 'ZZZ']
 
 # Function to navigate through the tree based on directions
 def navigate_tree(tree, directions, current_node):
