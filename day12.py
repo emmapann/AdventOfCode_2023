@@ -1,5 +1,7 @@
 import re
 from itertools import product
+import time
+start_time = time.time()
 
 def find_consecutive_groups(input_string):
     pattern = r'[#?]+'
@@ -42,11 +44,13 @@ def find_combinations(lists, target_sequence):
     def check_sequence(combination):
         concatenated = [item for sublist in combination for item in sublist]
         return concatenated == target_sequence
-
     possible_combinations = product(*lists)
     valid_combinations = []
 
+    #TODO this part is the slow
     for combination in possible_combinations:
+        #print("one combo")
+        #print(f"{combination}")
         if check_sequence(combination):
             valid_combinations.append(combination)
 
@@ -69,6 +73,7 @@ with open('input_day12.txt', 'r') as f:
         selected_combinations = find_combinations(hash_groups, target_sequence)
         total += len(selected_combinations)
     print(total)
+print("--- %s seconds ---" % (time.time() - start_time))
 
 
 # #-----------------------------
