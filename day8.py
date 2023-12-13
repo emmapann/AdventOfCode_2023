@@ -12,13 +12,11 @@ def build_tree(nodes):
         if first:
             first_node = root
             first = False
-            print("first node: ", first_node)
 
         rest = rest.replace('(', '').replace(')', '')
         left, right = rest.strip().split(',')
         tree[root] = (left.strip(), right.strip())  # Store left and right connections for each node
     last_node = root
-    print("last node: ", last_node)
     return [tree, 'AAA', 'ZZZ']
 
 # Function to navigate through the tree based on directions
@@ -26,14 +24,6 @@ def navigate_tree(tree, directions, current_node):
     #current_node = 'root'  # Starting from the root node
     num_steps = 0
     for direction in directions:
-        # Infinite loop waiting for user input
-        while True:
-            user_input = input("Please enter something: ")
-    
-            # Check if user_input is not empty
-            if user_input:
-                break  # Exit the loop if user enters something
-
         if direction == 'L':
             next_node = tree[current_node][0]  # Move to the left node
             num_steps += 1
@@ -47,13 +37,11 @@ def navigate_tree(tree, directions, current_node):
         if not next_node:  # If there's no connection in the given direction
             print("No node found in direction:", direction)
             return None
-        print("direction: ", direction)
-        print("next node: ", next_node)
         current_node = next_node  # Update current node for the next iteration
 
     return [current_node, num_steps]  # Return the final node reached and number of steps taken
 
-with open('input_day8_test.txt', 'r') as f:
+with open('input_day8.txt', 'r') as f:
     lines = f.read() 
     # Splitting the input into lines and filtering out empty lines
     lines = [line.strip() for line in lines.split('\n') if line.strip()]
@@ -67,18 +55,13 @@ with open('input_day8_test.txt', 'r') as f:
 
     #current_node = 'root'  # Starting from the root node
     # Traverse the tree using given directions
-    print("about to nav tree")
     result = navigate_tree(tree, directions, first_node)
-    print("done")
     final_node = result[0]
-    print("final_node: ", final_node)
     num_steps = result[1]
     
     # for each character in directions
     while (final_node != last_node):
-            print("uh oh again")
             result = navigate_tree(tree, directions, final_node)
             final_node = result[0]
-            print("final_node: ", final_node)
             num_steps += result[1]
     print(num_steps)

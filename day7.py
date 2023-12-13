@@ -97,7 +97,7 @@ card_mapping = {
     'A': 12,
 }
 
-#---------------------------------------------------------------------
+""" #---------------------------------------------------------------------
 # part 1
 total = 0
 hand_list = [[] for _ in range(91)]
@@ -127,7 +127,7 @@ with open('input_day7.txt', 'r') as f:
                         
     hand_list = [item for sublist in hand_list if sublist for item in sublist]
     bid_list = [item for sublist in bid_list if sublist for item in sublist]
-print(sum(list(map(lambda x, y: x * y, bid_list, list(range(1, len(bid_list)+1))))))
+print(sum(list(map(lambda x, y: x * y, bid_list, list(range(1, len(bid_list)+1)))))) """
         
 #---------------------------------------------------------------------
 # part 2
