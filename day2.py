@@ -32,6 +32,7 @@ with open('input_day2.txt', 'r') as f:
                 num = re.findall("\d+", single_color)[0]
                 # find corresponding color string
                 color = "".join(re.split("[^a-zA-Z]*", single_color))
+                # add number of cubes 
                 match color:
                     case "red":
                         rgb[0] = int(num)
