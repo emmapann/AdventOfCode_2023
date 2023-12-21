@@ -39,11 +39,26 @@ def ensure_index_existence(matrix, desired_index):
 
 dig_plan = np.array([['#'], ['.']])
 curr_ind = [0, 0]
+part2 = True
 
-with open('input_day18.txt', 'r') as f:
+with open('input_day18_test.txt', 'r') as f:
     for line in f.readlines():
         dir, meters, color = line.split(' ')
         meters = int(meters)
+        print(f"{color=}")
+        
+        # For part 2, use color to get the dir and meters
+        if (part2):
+            meters = int(color[2:7], 16)
+            print(f"{color[2:7]=}")
+            print(f"{meters=}")
+            dir = color[7]
+            print(f"{dir=}")
+            if dir == '0': dir = "R"
+            elif dir == '1': dir = "D"
+            elif dir == '2': dir = "L"
+            else: dir = "U"
+        
         match dir:
             case "R":
                 next_ind = [curr_ind[0], curr_ind[1] + meters]
