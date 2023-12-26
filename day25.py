@@ -13,6 +13,7 @@ def find_critical_edges(graph):
                 edges_to_remove = [sorted_edges[i][0], sorted_edges[j][0], sorted_edges[k][0]]
                 temp_graph = graph.copy()
                 temp_graph.remove_edges_from(edges_to_remove)
+                # If removing these 3 edges successfully separates the graph into 2, success!
                 if nx.number_connected_components(temp_graph) == 2:
                     return edges_to_remove
     return None
