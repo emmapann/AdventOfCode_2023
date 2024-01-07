@@ -40,11 +40,84 @@ def replace_hashes_with_count(matrix):
 
     return matrix, hash_count  # Return the modified array
 
+# Get updated indices using empty row / col knowledge
+def get_indices_of_hash(matrix, empty_rows, empty_cols):
+    indices = []
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if matrix[i][j] == '#':
+                rows_to_add = 999999 * sum([i >= r for r in empty_rows])
+                cols_to_add = 999999 * sum([j >= c for c in empty_cols])
+                indices.append((i + rows_to_add, j + cols_to_add))
+    return indices
 
-#---------------------------------------------------------------------
-# part 1
+# Calculate Manhattan distance between two points
+def manhattan_distance(point1, point2):
+    return abs(point2[0] - point1[0]) + abs(point2[1] - point1[1])
+
+
+# #---------------------------------------------------------------------
+# # part 1
+# # Initialize an empty NumPy array
+# matrix = np.empty((0, 0)) 
+# num_steps = 0
+# with open('input_day11.txt', 'r') as f:
+#     for line in f.readlines():
+#         # build grid
+#         line = [list(line.strip())] 
+#         if matrix.size == 0:
+#             matrix = np.array(line)
+#         else:
+#             # append new rows
+#             matrix = np.vstack((matrix, line))
+    
+#     expanded_matrix = matrix
+#     count = 0
+#     # Check for rows containing only '.' and insert a new row with '.' characters
+#     for i, row in enumerate(matrix):
+#         if np.all(row == '.'):
+#             count+=1
+#             new_row = np.full_like(row, '.', dtype='U')
+#             expanded_matrix = np.insert(expanded_matrix, count, new_row, axis=0)
+#         count +=1
+            
+#     count = 0
+#     # Check for columns containing only '.' and insert a new column with '.' characters
+#     for i, col in enumerate(expanded_matrix.T):
+#         if np.all(col == '.'):
+#             count+=1
+#             new_col = np.full_like(col, '.', dtype='U')
+#             expanded_matrix = np.insert(expanded_matrix, count, new_col, axis=1)
+#         count+=1
+    
+#     [expanded_matrix, hash_count] = replace_hashes_with_count(expanded_matrix.tolist())
+#     expanded_matrix = np.array(expanded_matrix)
+
+#     galexy_sets = list(combinations(list(range(1, hash_count + 1)), 2))
+
+
+#     for g_set in galexy_sets:
+#         print("Processing set: ", g_set[0], g_set[1])
+#         start = np.where(expanded_matrix == g_set[0])
+#         end = np.where(expanded_matrix == g_set[1])
+#         num_steps += shortest_path(expanded_matrix, (start[0][0], start[1][0]), (end[0][0], end[1][0]))  
+
+#     print(num_steps)
+
+#--------------------------------------------------------------------
+# Part 2
+# The implementation in part 1 works for a smaller sized matrix, but once I read that part 2 would require adding
+# millions of rows and columns, I needed to rethink the strategy. Instead of doing BFS algorithm, can just use indices
+# and use Manhattan Distance formula to find distance between two points. I will search the original input and keep 
+# track of the 'empty' rows and columns. Then I will search the input to find the '#' and in the same function, calculate 
+# the X and Y index of each '#' while applying the knowledge of where the empty rows and columns are. Once the updated
+# indices are found, can use combinations and distance formula and add up all the distances to get total steps. 
+    
 # Initialize an empty NumPy array
 matrix = np.empty((0, 0)) 
+empty_rows = []
+empty_cols = []
+
 num_steps = 0
 with open('input_day11.txt', 'r') as f:
     for line in f.readlines():
@@ -56,36 +129,24 @@ with open('input_day11.txt', 'r') as f:
             # append new rows
             matrix = np.vstack((matrix, line))
     
-    expanded_matrix = matrix
-    count = 0
-    # Check for rows containing only '.' and insert a new row with '.' characters
+    # Check for rows containing only '.' and store info
     for i, row in enumerate(matrix):
         if np.all(row == '.'):
-            count+=1
-            new_row = np.full_like(row, '.', dtype='U')
-            expanded_matrix = np.insert(expanded_matrix, count, new_row, axis=0)
-        count +=1
+            empty_rows.append(i)
             
-    count = 0
-    # Check for columns containing only '.' and insert a new column with '.' characters
-    for i, col in enumerate(expanded_matrix.T):
+    # Check for columns containing only '.' and store info
+    for i, col in enumerate(matrix.T):
         if np.all(col == '.'):
-            count+=1
-            new_col = np.full_like(col, '.', dtype='U')
-            expanded_matrix = np.insert(expanded_matrix, count, new_col, axis=1)
-        count+=1
-    
-    [expanded_matrix, hash_count] = replace_hashes_with_count(expanded_matrix.tolist())
-    expanded_matrix = np.array(expanded_matrix)
+            empty_cols.append(i)
 
-    galexy_sets = list(combinations(list(range(1, hash_count + 1)), 2))
+    # Get indices, taking into account where the empty rows / cols are
+    indices = get_indices_of_hash(matrix, empty_rows, empty_cols)
 
-
-    for g_set in galexy_sets:
-        print("Processing set: ", g_set[0], g_set[1])
-        start = np.where(expanded_matrix == g_set[0])
-        end = np.where(expanded_matrix == g_set[1])
-        num_steps += shortest_path(expanded_matrix, (start[0][0], start[1][0]), (end[0][0], end[1][0]))  
-
+    distances = []
+    for i in range(len(indices)):
+        for j in range(i + 1, len(indices)):
+            distance = manhattan_distance(indices[i], indices[j])
+            distances.append((indices[i], indices[j], distance))
+            num_steps += distance
     print(num_steps)
 
